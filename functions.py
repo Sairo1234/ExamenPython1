@@ -41,7 +41,7 @@ def read_data(filename):
                 }
                 
         if len(data) < 10:
-            raise ValueError('El fichero debe tener al menos 10 muestras con todos los atributos.')
+            raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que el fichero tiene menos de 10 muestras con todos los atributos.')
         
         return data
 
@@ -70,6 +70,11 @@ def split(data):
             red[i] = data[i]
             del red[i]['type']
             
+    if not white:
+        raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que no hay datos del tipo white.')
+    if not red:
+        raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que no hay datos del tipo red.')
+            
     return white, red
 
 #Ejercicio 4
@@ -93,7 +98,10 @@ def reduce(diccionario, atributo):
             
         else:
             raise ValueError('El atributo no existe en el diccionario.')
-            
+    
+    if len(lista) < 10:
+        raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que la lista tiene menos de 10 muestras con todos los atributos.')
+    
     return lista
 
 #Ejercicio 5
@@ -107,12 +115,42 @@ def silhouette(lista1, lista2):
     Returns:
         float: coeficiente de Silhouette de la primera lista
     """
+    
+    #Calculamos la distancia media de cada muestra de la lista1 con respecto a las muestras de la lista1
     a = {}
+    
     for i in range(len(lista1)):
+        
         distances = []
+        
         for j in range(len(lista1)):
+            
             if i != j:
                 distance = math.sqrt(abs(lista1[i] - lista1[j])**2)
                 distances.append(distance)
+                
+        a[i] = sum(distances)/len(distances)
+        
+        if len(a) < 10:
+            raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que la lista tiene menos de 10 muestras en el diccionario a.')
+    
+    #Calculamos la distancia media de cada muestra de la lista1 con respecto a las muestras de la lista2
+    b={}
+    
+    for i in range(len(lista1)):
+        
+        distances = []
+        
+        for j in range(len(lista2)):
+            
+            distance = math.sqrt(abs(lista1[i] - lista2[j])**2)
+            distances.append(distance)
+            
+        b[i] = sum(distances)/len(distances)
+        
+        if len(b) < 10:
+            raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que la lista tiene menos de 10 muestras en el diccionario b.')
+    
+
     
     
