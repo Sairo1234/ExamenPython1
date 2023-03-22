@@ -1,4 +1,5 @@
 import csv
+import math
 
 #Ejercicio 2
 def read_data(filename):
@@ -73,17 +74,14 @@ def split(data):
 
 #Ejercicio 4
 def reduce(diccionario, atributo):
-    """_summary_
-
+    """Esta funcion recibe un diccionario y un atributo y devuelve una lista con los valores de ese atributo.
+    
     Args:
-        diccionario (_type_): _description_
-        atributo (_type_): _description_
-
-    Raises:
-        ValueError: _description_
-
+        diccionario (diccionario): diccionario con los datos del fichero csv
+        atributo (str): nombre del atributo
+    
     Returns:
-        _type_: _description_
+        lista: lista con los valores del atributo
     """
     
     lista = []
@@ -100,4 +98,21 @@ def reduce(diccionario, atributo):
 
 #Ejercicio 5
 def silhouette(lista1, lista2):
+    """Esta funcion recibe dos listas y devuelve el coeficiente de Silhouette de la primera lista.
+
+    Args:
+        lista1 (lista): lista con los valores del atributo
+        lista2 (lista): lista con los valores del atributo
+
+    Returns:
+        float: coeficiente de Silhouette de la primera lista
+    """
+    a = {}
+    for i in range(len(lista1)):
+        distances = []
+        for j in range(len(lista1)):
+            if i != j:
+                distance = math.sqrt(abs(lista1[i] - lista1[j])**2)
+                distances.append(distance)
+    
     
