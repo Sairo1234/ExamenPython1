@@ -94,7 +94,7 @@ def reduce(diccionario, atributo):
     for i in diccionario:
         
         if atributo in diccionario[i]:
-            lista.append(diccionario[i][atributo])
+            lista.append(float(diccionario[i][atributo]))
             
         else:
             raise ValueError('El atributo no existe en el diccionario.')
@@ -151,6 +151,15 @@ def silhouette(lista1, lista2):
         if len(b) < 10:
             raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que la lista tiene menos de 10 muestras en el diccionario b.')
     
+    #Calculamos el coeficiente de Silhouette de cada punto
+    s={}
+    
+    for i in range(len(lista1)):
+        
+        s[i] = (b[i] - a[i])/max(a[i], b[i])
+        
+        if len(s) < 10:
+            raise ValueError('Ha ocurrido la excepcion ValueError donde se indica que la lista tiene menos de 10 muestras en el diccionario s.')
+    
+    return sum(s.values())/len(s)
 
-    
-    
